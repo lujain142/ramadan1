@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مِن أنصارِك قُربةً إليكَ </title>
+    <link rel="icon" href="1.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="spinBtn">اختار</div>
+        <div class="wheel">
+            <div class="number" style="--i:1;--clr:#db7093;"><span>قِراءة سُورة يَس</span></div>
+            <div class="number" style="--i:2;--clr:#20b2aa;"><span>صَلاة اللَيل</span></div>
+            <div class="number" style="--i:3;--clr:#d63e92;"><span>دُعاء يا عِدتي</span></div>
+            <div class="number" style="--i:4;--clr:#daa520;"><span>صدقة بإسم صاحِب الزَمان</span></div>
+            <div class="number" style="--i:5;--clr:#ff340f;"><span>رَكعتين مُهداة لصاحِب الزَمان</span></div>
+            <div class="number" style="--i:6;--clr:#ff7f50;"><span>رَكعتين مُهداة لأم البَنين</span></div>
+            <div class="number" style="--i:7;--clr:#3cb371;"><span>لا إله ألا الله 200مرة</span></div>
+            <div class="number" style="--i:8;--clr:#8b4513;"><span>لا حول ولا قوة إلا بالله300مرة</span></div>
+            <div class="number" style="--i:9;--clr:#f4a460;"><span style="text-align: center; font-size: 9px;">الصَلاة على مُحمد واّل مُحمد<br>100مرة</span></div>
+            <div class="number" style="--i:10;--clr:#4169e6;"><span>سُورةالإخلاص100مرة</span></div>
+            <div class="number" style="--i:11;--clr:#6a5acd;"><span>سُورةالقَدر 100مرة</span></div>
+            <div class="number" style="--i:12;--clr:#c95acd;"><span>زَيارة عَاشوراء</span></div>
+            <div class="number" style="--i:13;--clr:#cd5a75;"><span>دُعاء البَهاء</span></div>
+            <div class="number" style="--i:14;--clr:#aecd5a;"><span>زَيارةاّل يَس</span></div>
+            <div class="number" style="--i:15;--clr:#5ab4cd;"><span>قِراءة مناجاة المُحبين</span></div>
+            <div class="number" style="--i:16;--clr:#cd7e5a;"><span>قِراءة مناجاة التَائبين</span></div>
+            <div class="number" style="--i:17;--clr:#5acda9;"><span>دُعاء الفَرج قَبل الإفطَار</span></div>
+            <div class="number" style="--i:18;--clr:#c5cd5a;"><span>الصَلوات المُحمدية313 مَرة</span></div>
+            <div class="number" style="--i:19;--clr:#20a8b2;"><span>دُعاء العهد</span></div>
+            <div class="number" style="--i:20;--clr:#20b24e;"><span>قِراءة دُعاء أبي حمزة الثمَالي</span></div>
+            <div class="number" style="--i:21;--clr:#b2209f;"><span>قِراءة سُورة الواقِعة</span></div>
+            <div class="number" style="--i:22;--clr:#20b278;"><span>قِراءة دُعاء السَحر</span></div>
+            <div class="number" style="--i:23;--clr:#f4a460;"><span>قِراءة دُعاء المَجير</span></div>
+            <div class="number" style="--i:24;--clr:#b2207a;"><span>تَسبيحة الزهراء</span></div>
+        </div>
+    </div>
+
+    <!-- Dialog Box -->
+    <div id="resultDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.5); z-index:1000;">
+        <p id="resultText" style="font-weight:bold;"></p>
+        <button onclick="closeDialog()" style="font-weight:bold;">اغلق</button>
+    </div> 
+
+    <!-- JavaScript -->
+    <script>
+        let wheel = document.querySelector('.wheel');
+        let spinBtn = document.querySelector('.spinBtn');
+        let resultDialog = document.getElementById('resultDialog');
+        let resultText = document.getElementById('resultText');
+        let value = Math.ceil(Math.random() * 3600);
+
+        spinBtn.onclick = function(){
+            wheel.style.transition = 'transform 5s ease-in-out';
+            wheel.style.transform = "rotate(" + value + "deg)";
+            setTimeout(function() {
+                showResult(calculateResult(value % 360));
+            }, 5000); // Adjust timeout to match transition
+            value += Math.ceil(Math.random() * 3600);
+        }
+
+        function calculateResult(angle) {
+            const numberOfOptions = 24;
+            const segmentAngle = 360 / numberOfOptions;
+            const offsetAngle = angle + (segmentAngle / 2);
+            const selectedSegment = Math.floor(offsetAngle / segmentAngle) % numberOfOptions;
+            return document.querySelectorAll('.wheel .number')[selectedSegment]?.textContent.trim();
+        }
+
+        function showResult(result) {
+            resultText.innerText = "" + result; // Show the result
+            resultDialog.style.display = 'block';
+        }
+
+        function closeDialog() {
+            resultDialog.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
